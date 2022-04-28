@@ -1,0 +1,148 @@
+import Tp_Casa_Pintada.*
+
+describe "Latas de Pintura"{
+	test "Se necesitan 6 latas de pintura para pintar 251 m2"{
+		assert.equals(6, aldo.pinNec(251))
+	}
+
+	test "Se necesitan 5 latas de pintura para pintar 250 m2"{
+		assert.equals(5, aldo.pinNec(250))
+	}
+
+	test "Se necesitan 5 latas de pintura para pintar 249 m2"{
+		assert.equals(5, aldo.pinNec(249))
+	}
+}
+
+describe "Costo Pintura"{
+	test "Pintar una superficie de 10 m2 sale $200"{
+		assert.equals(200,aldo.costPin(10,"pinturaNormal"))
+	}
+	
+	test "Pintar una superficie de 250 m2 sale $1000"{
+		assert.equals(1000,aldo.costPin(250,"pinturaNormal"))
+	}
+}
+
+
+describe "Precio de cada Pintor"{
+	test "Raul cobra $700 por pintar 20 m2"{
+		assert.equals(700, raul.pintar(20,"pinturaNormal"))
+	}
+	
+	test "Carlos cobra $500 por pintar 20 m2"{
+		assert.equals(500, carlos.pintar(20,"pinturaNormal"))
+	}
+	
+	test "Carlos cobra $860 por pintar 32 m2"{
+		assert.equals(860, carlos.pintar(32,"pinturaNormal"))
+	}
+	
+	test "Venancio cobra 1080 por pintar 32 m2"{
+		assert.equals(1080, venancio.pintar(32,"pinturaNormal"))
+	}
+}
+
+describe "Superficies"{
+	test "La superficie de la cocina es de 21 m2"{
+		aldo.medidasCoc(1,2,3.5)
+		assert.equals(21, aldo.superf("cocina"))
+	}
+	
+	test "La superficie de la habitacion es 20 m2"{
+		assert.equals(20, aldo.superf("habitacion"))
+	}
+	
+}
+
+describe "Cosas sobre Aldo"{
+	test "La superficie total de la casa es 41"{
+		aldo.medidasCoc(1,2,3.5)
+		aldo.supertotal("cocina")
+		aldo.supertotal("habitacion")
+		assert.equals(41, aldo.superficie())
+	}
+	
+	test "Aldo no puede contratar a Raul"{
+		assert.notThat(aldo.puedeCont(raul,41,"pinturaNormal"))
+	}
+	
+	test "Aldo ahorra $2000 mas y ahora si puede contratar a Raul"{
+		aldo.ah(2000)
+		assert.that(aldo.puedeCont(raul,41,"pinturaNormal"))
+	}
+	
+	test "Aldo ahorra $1000 mas, la pintura ahora cuetsa $400, y no puede contratar a Raul"{
+		aldo.ah(1000)
+		casaPintura.pintura(400)
+		assert.notThat(aldo.puedeCont(raul,41,"pinturaNormal"))
+	}
+	
+	test "Aldo puede contratar a Carlos"{
+		assert.that(aldo.puedeCont(carlos,41,"pinturaNormal"))
+	}
+	
+	test "Aldo no puede contratar a Venancio"{
+		assert.notThat(aldo.puedeCont(venancio,41,"pinturaNormal"))
+	}
+	
+	test "Aldo ahorra $2000 mas y ahora puede contratar a Venancio"{
+		aldo.ah(2000)
+		assert.that(aldo.puedeCont(venancio,41,"pinturaNormal"))
+	}
+}
+
+describe "Pintura a granel"{
+	test "La pintura para una superficie de 10 m2 cuesta $35"{
+		assert.equals(35,aldo.costPin(10,"aGranel"))
+	}
+	
+	test "La pintura necesaria para una superficie de 250 m2 cuesta $875"{
+		assert.equals(875,aldo.costPin(250,"aGranel"))
+	}
+	
+	test "Raul utiliza pintura AGranel y aldo puede contratarlo"{
+		assert.that(aldo.puedeCont(raul,41,"aGranel"))
+	}
+	
+	test "Venancio utiliza pintura AGranel pero Aldo todavia no lo puede contratar"{
+		assert.notThat(aldo.puedeCont(venancio,41,"aGranel"))
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
